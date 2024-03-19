@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+
+    <style>
+      td {
+        width: 100px;
+        font-size: 30px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td id="leftTD"><img id="left" src="./images/1.gif" /></td>
+        <td></td>
+        <td id="rightTD"><img id="right" src="./images/1.gif" /></td>
+      </tr>
+      <tr>
+        <td id="leftScoreTD">0</td>
+        <td></td>
+        <td id="rightScoreTD">0</td>
+      </tr>
+    </table>
+    <script>
+      const leftTD = document.getElementById("leftTD");
+      const rightTD = document.getElementById("rightTD");
+      const left = document.getElementById("left");
+      const right = document.getElementById("right");
+      const leftScoreTD = document.getElementById("leftScoreTD");
+      const rightScoreTD = document.getElementById("rightScoreTD");
+      let userScore = 0;
+      let comScore = 0;
+
+            const TdUserArray=[];
+            const TdPcArray=[];
+            leftTD.addEventListener("click",handleLeftClick)
+            
+    function handleLeftClick(){
+            let userCard = Math.floor(Math.random() * 13) + 1;
+            let pcCard = Math.floor(Math.random() * 13) + 1;
+            TdUserArray.push(userCard);
+            TdPcArray.push(pcCard);
+            changeImageUs((userCard));
+            changeImagePc((pcCard));
+            whoWin (userCard,pcCard);
+            if(userScore===3||comScore===3)
+            {
+            finishGame(userScore,comScore);
+            }
+        }
+       
+  function changeImageUs(userCard) {
+    leftTD.innerHTML = `<img src='./images/${userCard}.gif' />`;
+  }
+  function changeImagePc(pcCard){
+  rightTD.innerHTML = `<img src='./images/${pcCard}.gif' />`;  
+  }
+
+        function  whoWin (userRand,computerRand){ 
+             if(userRand===computerRand){
+              return;
+            }
+             if(userRand>computerRand){
+              userScore=userScore+1;
+            leftScoreTD.innerHTML = `<p>${userScore}</p>`;
+             }
+                 else{
+                  comScore=comScore+1;
+                  rightScoreTD.innerHTML = `<p>${comScore}</p>`;
+                  }
+             }
+          
+            function finishGame(userScore,comScore){
+             // Clear the content of leftTD and rightTD
+           leftTD.innerHTML = "";
+           rightTD.innerHTML = "";
+        for (let index = 0; index < TdUserArray.length; index++) {
+          
+            // USER IMAGES
+            const userCard = document.createElement("img");
+            userCard.src= `./images/${TdUserArray[index]}.gif`;
+                 
+            // COMPUTER IMAGES
+            const pcCrad = document.createElement("img");
+            pcCrad.src=`./images/${TdPcArray[index]}.gif`;
+            leftTD.append(userCard);
+            rightTD.append(pcCrad);
+           }
+            }
+           
+
+          </script>
+  </body>
+</html>
